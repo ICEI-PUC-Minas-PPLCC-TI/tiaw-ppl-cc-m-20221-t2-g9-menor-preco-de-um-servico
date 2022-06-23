@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ver todos os serviços</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+      integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/water.css@2/out/light.css"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <nav>
+      <ul>
+        <li><a href="index.html">Seus serviços</a></li>
+      </ul>
+    </nav>
+    <h1>Todos os serviços</h1>
+    <p>Serviços e preços de todos os usuários</p>
+
+    <input
+      id="search"
+      type="text"
+      class="search"
+      placeholder="pesquisar por..."
+      oninput="setAutoSearch()"
+    />
+    <div id="main"></div>
+  </body>
+
+  <script>
+    getServicesFromStorage = function () {
+      let services = localStorage.getItem("services");
+      services = JSON.parse(services);
+      return services;
+    };
+    setServices = function (servicesFromSearch) {
+      let services;
+      if (servicesFromSearch) services = servicesFromSearch;
+      else {
+        services = getServicesFromStorage();
+      }
+
+      if (!services) {
+        document.getElementById("main").innerHTML =
+          "Abra o index.html primeiro";
+        return;
+      }
+
+      let html = "";
+      services.forEach((s, i) => {
+        if (!s.notes) s.notes = "";
+        html += `
+    <details open>
+      <summary style="width: 100%">
+        ${s.enterprise} - ${s.name} - R$ ${s.price}
+      </summary>
+      ${s.notes}
+      <p class="userName">@${s.user.name} </p>
+    </details>
+    `;
+      });
+
+      document.getElementById("main").innerHTML = html;
+    };
+
+    setAutoSearch = function (a) {
+      const searchInput = document.querySelector("#search");
+
+      let value = searchInput.value;
+      if (!value || value.trim().length == 0) {
+        setServices();
+        return;
+      }
+
+      value = value.trim().toLowerCase();
+      const userTyped = value;
+
+      const allServices = getServicesFromStorage();
+      let filteredServices = [];
+
+      // Procurar por todos os campos do objeto service por
+      // algo que o usuário digitou
+      allServices.forEach((s) => {
+        let match = false;
+        Object.keys(s).forEach((field) => {
+          if (!s[field].includes) return; // Se não for string
+          if (s[field].toLowerCase().includes(userTyped)) match = true;
+        });
+        if (match) filteredServices.push(s);
+      });
+
+      setServices(filteredServices);
+    };
+
+    setServices();
+    setAutoSearch();
+  </script>
+</html>
