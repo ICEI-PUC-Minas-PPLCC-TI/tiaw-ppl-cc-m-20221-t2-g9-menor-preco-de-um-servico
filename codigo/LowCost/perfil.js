@@ -1,5 +1,5 @@
 
-const loginPath = window.location.href.replace('sistema/index.html', 'index.html');
+const loginPath = 'Perfil2.html';
 
 function initCreateUser() {
   const formCreate = document.querySelector('[data-form="create"]');
@@ -76,7 +76,7 @@ function initLogin() {
       const userInfo = {name: isUserRight.name};
       localStorage.setItem('sistema:userInfo', JSON.stringify(userInfo));
 
-      window.location = window.location.href.replace('index.html', '') + 'sistema/index.html';
+      window.location = loginPath;
     }
 
     if(!isUserRight && errorMessage) {
@@ -154,13 +154,13 @@ function initStartSistem() {
       if(localStorage.getItem('sistema:isLoggedIn')) {
         const isLoggedIn = JSON.parse(localStorage.getItem('sistema:isLoggedIn') || '');
 
-        if(isLoggedIn && window.location.pathname == '/') {
-          window.location = window.location.href+='sistema';
-        }
+      //  if(isLoggedIn && window.location.pathname == '/') {
+      //    window.location = window.location.href+='sistema';
+      //  }
 
-        if(!isLoggedIn && window.location.pathname == '/sistema/') {
-          window.location = loginPath;
-        }
+      //  if(!isLoggedIn && window.location.pathname == '/sistema/') {
+      //    window.location = loginPath;
+      //  }
       }
     } catch (e) {
       console.error(e)
