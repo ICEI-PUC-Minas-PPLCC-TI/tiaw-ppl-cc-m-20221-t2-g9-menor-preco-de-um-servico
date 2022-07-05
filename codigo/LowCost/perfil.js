@@ -223,8 +223,22 @@ class Modal {
     return this;
   }
 }
+
+function goToOtherPerfilIfAlreaddyLogged() {
+  const storageValue = localStorage.getItem('sistema:userInfo');
+  if (!storageValue) return;
+
+  const hasUser = JSON.parse(storageValue);
+  if (!hasUser) return;
+
+  window.location = loginPath;
+
+
+}
+
 const modal = new Modal('.modal-overlay', '[data-modal="open"]', '[data-modal="close"]');
 modal.init();
+
 
 initStartSistem();
 initCreateUser();
@@ -232,3 +246,5 @@ initListUsers();
 initLogin();
 initLogout();
 initWellcome();
+
+goToOtherPerfilIfAlreaddyLogged();

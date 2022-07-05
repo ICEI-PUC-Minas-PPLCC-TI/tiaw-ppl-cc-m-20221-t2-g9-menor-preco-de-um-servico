@@ -42,7 +42,7 @@
                   </div>
                 </div>
                 <a class="flex-sm-fill text-sm-center nav-link active" href="Forum.html">Fórum</a>
-                <a class="flex-sm-fill text-sm-center nav-link" href="Negocie.html">Negocie</a>
+
                 <a class="flex-sm-fill text-sm-center nav-link" href="Sobre.html">Sobre</a>
                 <a href="Perfil.html">
                   <div class="perfil">
@@ -86,7 +86,7 @@
       for (let thread of threads) {
         var html = `
               <li class="row">
-                  <a href="/thread.html?${thread.id}">
+                  <a href="thread.html?${thread.id}">
                       <h4 class="title">
                           ${thread.title}
                       </h4>
@@ -109,6 +109,13 @@
     renderTopicos();
 
     function addTopico(topico) {
+      let user = localStorage.getItem('sistema:userInfo');
+      if (!user) {
+        alert('Faça login primeiro');
+        return;
+      } 
+      user = JSON.parse(user).name;
+
       // 1 - variavel do imput
       // 2 - gravar no json
       // 2.1 - pegar a variavel topicos
@@ -118,7 +125,7 @@
       var thread = {
         id: (threads.length) + 1,
         title: topico,
-        author: "Admin",
+        author: user,
         date: Date.now(),
         content: ("Conteudo do " + topico),
         comments: []

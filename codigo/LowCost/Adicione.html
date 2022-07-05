@@ -10,6 +10,15 @@
   <link rel="stylesheet" href="estilo.css">
   <title>LowCost</title>
   <script>
+    checkLogged = function() {
+      let user = localStorage.getItem('sistema:userInfo');
+      if (!user) {
+        alert('Faça login primeiro');
+        window.location = 'Perfil.html'
+        return;
+      }
+    }
+    checkLogged();
     addService = function () {
       let formData = new FormData(document.querySelector("form"));
       let service = {};
@@ -17,7 +26,8 @@
       service.price = formData.get('preco');
       service.enterprise = formData.get('empresa');
       service.notes = formData.get('notas');
-      const user = {id: 2, name: "Ciclano do Queijo"};
+      const userName = JSON.parse(localStorage.getItem('sistema:userInfo')).name;
+      const user = {id: Math.floor(Math.random() * 99999) , name: userName};
       service.user = user;
 
       let stored = localStorage.getItem("services"); 
@@ -66,7 +76,7 @@
                   </div>
                 </div>
                 <a class="flex-sm-fill text-sm-center nav-link" href="Forum.html">Fórum</a>
-                <a class="flex-sm-fill text-sm-center nav-link" href="Negocie.html">Negocie</a>
+
                 <a class="flex-sm-fill text-sm-center nav-link" href="Sobre.html">Sobre</a>
                 <a href="Perfil.html">
                   <div class="perfil">
