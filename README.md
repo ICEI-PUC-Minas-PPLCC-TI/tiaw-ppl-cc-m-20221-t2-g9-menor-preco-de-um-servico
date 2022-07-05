@@ -9,6 +9,7 @@ Há como você ligar para seu provedor de serviços como internet, tv a cabo e a
 * Vitor Lages
 * Davi Caetano
 * Lucas Lopes
+* Lucas Moreira
 
 ## Professores responsáveis
 
