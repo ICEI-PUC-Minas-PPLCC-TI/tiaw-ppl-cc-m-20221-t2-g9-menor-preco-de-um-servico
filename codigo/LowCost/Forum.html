@@ -63,8 +63,8 @@
       <ol>
       </ol>
     </div>
-    <textarea ></textarea>
-    <button class="btn" type="button" id="btn-forum">adicionar tópico</button>
+    <textarea rows="5" cols="150"></textarea>
+    <button class="btn botao-padrao" type="button" id="btn-forum">adicionar tópico</button>
   </main>
 
   <footer>
@@ -84,23 +84,18 @@
       var container = document.querySelector('ol');
       container.innerText = "";
       for (let thread of threads) {
-        var html = `
-              <li class="row">
-                  <a href="thread.html?${thread.id}">
-                      <h4 class="title">
-                          ${thread.title}
-                      </h4>
-                      <div class="bottom">
-                          <p class="timestamp">
-                              ${new Date(thread.date).toLocaleString()}
-                          </p>
-                          <p class="comment-count">
-                              ${thread.comments.length} comentarios
-                          </p>
-                      </div>
-                  </a>
-              </li>
-              `
+        var html = ` 
+
+<div class="card text-center">
+  <div class="card-body">
+    <h5 class="card-title">${thread.title}</h5>
+    <p class="card-text">${thread.comments.length} comentarios </p>
+    <a href="thread.html?${thread.id}" class="btn botao-padrao">Saber Mais</a>
+  </div>
+  <div class="card-footer text-muted">
+    ${new Date(thread.date).toLocaleString()}
+  </div>
+</div>`
         container.insertAdjacentHTML('beforeend', html);
       }
     }
