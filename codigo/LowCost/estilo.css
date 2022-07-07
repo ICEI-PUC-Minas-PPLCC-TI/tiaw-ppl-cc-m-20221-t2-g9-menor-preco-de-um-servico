@@ -119,6 +119,11 @@
         height: 300px;
         margin: 20px;
     }
+    .img_infol{
+        width: 500px ;
+        height: 400px;
+        margin: 20px;
+    }
 
     .card{
         margin-bottom: 20px;
